@@ -2,6 +2,7 @@ package com.example.userapi.controller;
 
 import com.example.userapi.dto.UserDTO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
@@ -54,4 +55,13 @@ public class UserController {
         return users;
     }
 
+    @GetMapping("/users/{cpf}")
+    public  UserDTO getUsersFilter(@PathVariable String cpf) {
+        for(UserDTO userFilter: users){
+            if(userFilter.getCpf().equals(cpf)){
+                return userFilter;
+            }
+        }
+        return null;
+    }
 }
