@@ -1,9 +1,7 @@
 package com.example.userapi.controller;
 
 import com.example.userapi.dto.UserDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -64,4 +62,23 @@ public class UserController {
         }
         return null;
     }
+
+    @PostMapping("/newUser")
+    public UserDTO insertUser(@RequestBody UserDTO userDTO) {
+        userDTO.setRegistrationDate(new Date());
+        users.add(userDTO);
+        return userDTO;
+    }
+
+    @DeleteMapping("/users/{cpf}")
+    public boolean remove(@PathVariable String cpf) {
+        for(UserDTO userFilter: users){
+            if(userFilter.getCpf().equals(cpf)){
+                users.remove(userFilter);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
